@@ -259,7 +259,9 @@ const {
             resetEditing();
           }}
         >
+          <output>FirstName :</output>
           <Input
+            
             value={editingrow?.firstName}
             onChange={(e) => {
               setEditingrow((pre) => {
@@ -267,6 +269,7 @@ const {
               });
             }}
           />
+          <output>lastName :</output>
           <Input
             value={editingrow?.lastName}
             onChange={(e) => {
@@ -274,7 +277,8 @@ const {
                 return { ...pre, lastName: e.target.value };
               });
             }}
-          />        
+          />      
+          <output>email :</output>  
           <Input
             value={editingrow?.email}
             onChange={(e) => {
@@ -283,6 +287,7 @@ const {
               });
             }}
           />
+          <output>contactNumber :</output>
           <Input
             value={editingrow?.contactNumber}
             onChange={(e) => {
@@ -291,6 +296,7 @@ const {
               });
             }}
           />
+          <output>age :</output>
           <Input
             value={editingrow?.age}
             onChange={(e) => {
@@ -299,6 +305,7 @@ const {
               });
             }}
           />
+          <output>date de naissance :</output>
           <Input
             value={editingrow?.dob}
             onChange={(e) => {
@@ -307,6 +314,7 @@ const {
               });
             }}
           />
+          <output>salary :</output>
           <Input
             value={editingrow?.salary}
             onChange={(e) => {
@@ -315,6 +323,7 @@ const {
               });
             }}
           />
+          <output>address :</output>
           <Input
             value={editingrow?.address}
             onChange={(e) => {
