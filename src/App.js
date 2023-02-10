@@ -30,7 +30,17 @@ function App() {
 
   const [isEditing,setIsEditing]= useState(false);
   const [editingrow,setEditingrow]=useState(null);
+  const[isInserting,setIsInserting]=useState(false);
+  const [newrow,setNewrow]=useState(null);
 
+  const onInsert = (record)=>{
+    setIsInserting(true);
+    setNewrow({...record});
+  }
+  const resetInsert = () => {
+    setIsInserting(false);
+    setNewrow(null);
+  };
   const onEditrow =(record)=>{
     setIsEditing(true);
     setEditingrow({...record})
@@ -39,6 +49,7 @@ function App() {
     setIsEditing(false);
     setEditingrow(null);
   };
+
   
 
   const Search = (dat) =>{
@@ -168,7 +179,8 @@ function App() {
     },
 
   ];
- 
+
+  
  
   const handleDelete =(record)=>{
     Modal.confirm({
@@ -183,6 +195,19 @@ function App() {
     })
     
   };
+  
+  const Bouton = (record) =>{
+
+    const [ip,setIsper]=useState(null)
+    return(
+      <>
+  <Button type="primary"  onClick={() => {
+    onInsert (record)}} block >
+Ajouter
+</Button>
+</>
+)}
+  
 
 
   const [table, setTable] = useState([]);
@@ -232,12 +257,110 @@ const {
          
         </Breadcrumb>
         <Space direction="vertical" style={{ width: '100%' }}>
-    <Button type="primary" block >
-      Ajouter
-    </Button></Space>
+   </Space>
+   <Bouton ></Bouton>
+    <Modal
+          title="inserer"
+          visible={isInserting}
+          okText="Save"
+          onCancel={() => {
+            resetInsert();
+          }}
+          onOk={() => {
+            setTable((pre) => {
+              const net=[newrow,...table] ;
+              return(
+               net             
+              )
+            });
+            resetInsert();
+
+          }}
+        >
+          <output>FirstName :</output>
+          <Input
+            
+            value={newrow?.firstName}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, firstName: e.target.value };
+              });
+            }}
+          />
+          <output>lastName :</output>
+          <Input
+            
+            value={newrow?.lastName}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, lastName: e.target.value };
+              });
+            }}
+          />
+          <output>email :</output>
+          <Input
+            
+            value={newrow?.email}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, email: e.target.value };
+              });
+            }}
+          />
+          <output>contactNumber :</output>
+          <Input
+            
+            value={newrow?.contactNumber}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, contactNumber: e.target.value };
+              });
+            }}
+          />
+          <output>age :</output>
+          <Input
+            
+            value={newrow?.age}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, age: e.target.value };
+              });
+            }}
+          />
+          <output>date de naissance :</output>
+          <Input
+            
+            value={newrow?.dob}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, dob: e.target.value };
+              });
+            }}
+          />
+          <output>salary :</output>
+          <Input
+            
+            value={newrow?.salary}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, salary: e.target.value };
+              });
+            }}
+          />
+          <output>address :</output>
+          <Input
+            
+            value={newrow?.address}
+            onChange={(e) => {
+              setNewrow((pre) => {
+                return { ...pre, address: e.target.value };
+              });
+            }}
+          /></Modal>
         <div><Input type='text' placeholder='recherche' onChange={(e) => setQuery(e.target.value)}></Input>
   <Table columns={columns} dataSource={Search(table)} onChange={onChange}  bordered      title={() => 'Table'}/></div>
       </Content>
+      
       
       <Modal
           title="Editer"
@@ -250,7 +373,7 @@ const {
             setTable((pre) => {
               return pre.map((table) => {
                 if (table.id === editingrow.id) {
-                  return editingrow;
+                  return editingrow; 
                 } else {
                   return table;
                 }
